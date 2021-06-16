@@ -1,6 +1,8 @@
 import os
 import argparse
+import time
 import json
+import cv2
 import face_recognition
 
 
@@ -61,7 +63,28 @@ def identify_camera_images(single_folder, objects, detected_faces_person, folder
         issue_multi_faces = False
         
         try:
-            face_pic_stream = face_recognition.load_image_file(pic)
+            #Crop the images
+            im_full = cv2.imread(pic)
+            # Percent by which the image is resized
+            scale_percent = 50
+
+            # Calculate the 50 percent of original dimensions
+            width = int(im_full.shape[1] * scale_percent / 100)
+            height = int(im_full.shape[0] * scale_percent / 100)
+            dsize = (width, height)
+            # Resize image
+            resize_image = cv2.resize(im_full, dsize)
+
+            image_croped = single_folder + "/img_croped.jpg"
+
+            cv2.imwrite(image_croped, resize_image)
+
+
+            face_pic_stream = face_recognition.load_image_file(image_croped)
+
+            #Remove new image
+            os.remove(image_croped)
+
             face_pic_detected =  face_recognition.face_encodings(face_pic_stream)[0]
             issue_face_found = True
 
@@ -246,7 +269,9 @@ def identify_face(path, folder):
     
 
 def main(path, folder):
+    print('Start: ' + time.strftime("%Y %m %d %H %M %S"))
     identify_face(path, folder)
+    print('Finish: ' + time.strftime("%Y %m %d %H %M %S"))
 
 
 if __name__ == '__main__':
