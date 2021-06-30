@@ -422,26 +422,26 @@ def identify_face(path, folder):
             report_text = "{ \n " + report_text + "\n }"
 
             #Transform report text to json
-            arr_noface_issue = []
-            arr_normal_issue = []
-            json_report = json.loads(report_text)
+            #arr_noface_issue = []
+            #arr_normal_issue = []
+            #json_report = json.loads(report_text)
             
-            for img_element in json_report['cameraImages']:
-                    if img_element['image']['faceFound'] == False:
-                            arr_noface_issue.append(img_element)
-                    else:
-                            arr_normal_issue.append(img_element)
+            #for img_element in json_report['cameraImages']:
+            #        if img_element['image']['faceFound'] == False:
+            #                arr_noface_issue.append(img_element)
+            #        else:
+            #                arr_normal_issue.append(img_element)
 
-            if len(arr_noface_issue) > 8:
-                arr_interval = []
-                pos_interval = int(round(1.0 * len(arr_noface_issue) / 8))
+            #if len(arr_noface_issue) > 8:
+            #    arr_interval = []
+            #    pos_interval = int(round(1.0 * len(arr_noface_issue) / 8))
 
-                for x in range(0, len(arr_noface_issue) - 1, pos_interval):
-                        arr_interval.append(arr_noface_issue[x])
+            #    for x in range(0, len(arr_noface_issue) - 1, pos_interval):
+            #            arr_interval.append(arr_noface_issue[x])
 
-                json_report['cameraImages'] = arr_normal_issue + arr_interval
-                json_str = json.dumps(json_report)
-                report_text = json_str
+            #    json_report['cameraImages'] = arr_normal_issue + arr_interval
+            #    json_str = json.dumps(json_report)
+            #    report_text = json_str
             
             print("$$$$$"+report_text+"$$$$$")
 
