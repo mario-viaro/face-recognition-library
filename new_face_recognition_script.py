@@ -133,7 +133,15 @@ def identify_camera_images(single_folder, objects, detected_faces_person, folder
         cv_imgs_array = []
         merge_number = 0
         first_array_image = folder + '/' + array_element[0]
-        if len(array_element) == 4:
+
+        if len(array_element) == 3:
+            cv_imgs_array.append(cv2.imread(single_folder + '/' + array_element[0]))
+            cv_imgs_array.append(cv2.imread(single_folder + '/' + array_element[1]))
+            cv_imgs_array.append(cv2.imread(single_folder + '/' + array_element[2]))
+            im_full = cv2.hconcat([cv_imgs_array[0], cv_imgs_array[1], cv_imgs_array[2]])
+            merge_number = 3
+
+        elif len(array_element) == 4:
             cv_imgs_array.append(cv2.imread(single_folder + '/' + array_element[0]))
             cv_imgs_array.append(cv2.imread(single_folder + '/' + array_element[1]))
             cv_imgs_array.append(cv2.imread(single_folder + '/' + array_element[2]))
@@ -279,16 +287,16 @@ def identify_camera_images(single_folder, objects, detected_faces_person, folder
                 
                 #Top left
                 if (not face_found_tl or multi_face_found_tl or not similar_face_found_tl):
-                    full_camera_report += camera_img_issue(array_element[0], face_found_tl, similar_face_found_tl, multi_face_found_tl)
+                    full_camera_report += camera_img_issue(folder + '/' + array_element[0], face_found_tl, similar_face_found_tl, multi_face_found_tl)
                 #Top right
                 if (not face_found_tr or multi_face_found_tr or not similar_face_found_tr):
-                    full_camera_report += camera_img_issue(array_element[1], face_found_tr, similar_face_found_tr, multi_face_found_tr)
+                    full_camera_report += camera_img_issue(folder + '/' + array_element[1], face_found_tr, similar_face_found_tr, multi_face_found_tr)
                 #Bottom left
                 if (not face_found_bl or multi_face_found_bl or not similar_face_found_bl):
-                    full_camera_report += camera_img_issue(array_element[2], face_found_bl, similar_face_found_bl, multi_face_found_bl)
+                    full_camera_report += camera_img_issue(folder + '/' + array_element[2], face_found_bl, similar_face_found_bl, multi_face_found_bl)
                 #Bottom right
                 if (not face_found_br or multi_face_found_br or not similar_face_found_br):
-                    full_camera_report += camera_img_issue(array_element[3], face_found_br, similar_face_found_br, multi_face_found_br)
+                    full_camera_report += camera_img_issue(folder + '/' + array_element[3], face_found_br, similar_face_found_br, multi_face_found_br)
             
             #------------------------------------------------------------------ End analisis for merge of 4 ------------------------------------------------------------------
 
